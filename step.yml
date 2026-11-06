@@ -17,9 +17,9 @@ description: |-
   ### Related Steps
 
   - [Git Clone Repository](https://www.bitrise.io/integrations/steps/git-clone)
-website: https://github.com/bitrise-steplib/bitrise-step-entire-setup
-source_code_url: https://github.com/bitrise-steplib/bitrise-step-entire-setup
-support_url: https://github.com/bitrise-steplib/bitrise-step-entire-setup/issues
+website: https://github.com/bitrise-steplib/step-entire-setup
+source_code_url: https://github.com/bitrise-steplib/step-entire-setup
+support_url: https://github.com/bitrise-steplib/step-entire-setup/issues
 
 type_tags:
 - utility
@@ -29,7 +29,7 @@ is_skippable: false
 
 toolkit:
   go:
-    package_name: github.com/bitrise-steplib/bitrise-step-entire-setup
+    package_name: github.com/bitrise-steplib/step-entire-setup
 
 inputs:
 - entire_version: 0.12.2

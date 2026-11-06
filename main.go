@@ -9,7 +9,7 @@ import (
 	"github.com/bitrise-io/go-utils/v2/env"
 	"github.com/bitrise-io/go-utils/v2/log"
 	"github.com/bitrise-io/go-utils/v2/retryhttp"
-	"github.com/bitrise-steplib/bitrise-step-entire-setup/step"
+	"github.com/bitrise-steplib/step-entire-setup/step"
 )
 
 func main() {

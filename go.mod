@@ -1,4 +1,4 @@
-module github.com/bitrise-steplib/bitrise-step-entire-setup
+module github.com/bitrise-steplib/step-entire-setup
 
 go 1.22
 

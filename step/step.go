@@ -13,7 +13,7 @@ import (
 	"github.com/bitrise-io/go-steputils/v2/stepconf"
 	"github.com/bitrise-io/go-utils/v2/env"
 	"github.com/bitrise-io/go-utils/v2/log"
-	"github.com/bitrise-steplib/bitrise-step-entire-setup/installer"
+	"github.com/bitrise-steplib/step-entire-setup/installer"
 )
 
 // TokenEnv is the variable git-remote-entire reads its checkout token from. Bitrise sets it for
