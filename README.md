@@ -21,7 +21,7 @@ Put the step right before Git Clone. Until the step is published to the steplib,
 workflows:
   primary:
     steps:
-    - git::https://github.com/bitrise-steplib/bitrise-step-entire-setup.git@ci-6575-entire-setup: {}
+    - git::https://github.com/bitrise-steplib/step-entire-setup.git@ci-6575-entire-setup: {}
     - git-clone@8: {}
 ```
 

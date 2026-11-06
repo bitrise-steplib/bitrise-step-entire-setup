@@ -1,0 +1,44 @@
+format_version: "11"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+workflows:
+  check:
+    steps:
+    - git::https://github.com/bitrise-steplib/steps-check.git: {}
+
+  e2e:
+    steps:
+    - git::https://github.com/bitrise-steplib/steps-check.git:
+        inputs:
+        - workflow: e2e
+
+  test:
+    envs:
+    - ENTIRE_TOKEN: dummy-token-for-the-presence-check
+    steps:
+    - change-workdir:
+        title: Switch working dir to _tmp
+        inputs:
+        - path: ./_tmp
+        - is_create_path: true
+    - script:
+        title: Pick an install dir
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            envman add --key TEST_INSTALL_DIR --value "$(pwd)/entire-bin"
+    - path::./:
+        inputs:
+        - install_dir: $TEST_INSTALL_DIR
+        - verbose: "true"
+    - script:
+        title: The helper is on PATH
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            command -v git-remote-entire
+            test -x "$ENTIRE_SETUP_HELPER_PATH"
+            test "$(command -v git-remote-entire)" = "$TEST_INSTALL_DIR/git-remote-entire"
+

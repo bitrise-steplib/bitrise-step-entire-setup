@@ -1,0 +1,68 @@
+title: Entire setup
+summary: Installs Entire's git-remote-entire helper so the Git Clone step can clone entire:// repositories
+description: |-
+  Repositories hosted on [Entire](https://entire.com) are cloned through Entire's git remote helper,
+  `git-remote-entire`: git runs it for `entire://` URLs, and the helper authenticates with the
+  checkout token Bitrise puts into the `ENTIRE_TOKEN` environment variable for the builds of an
+  Entire project.
+
+  This Step downloads the pinned release of the helper from
+  [entireio/cli](https://github.com/entireio/cli/releases), verifies it against the release's
+  checksums, installs only `git-remote-entire` and prepends the install directory to `PATH` for the
+  Steps that follow. Put it right before the Git Clone step.
+
+  The Step fails before downloading anything when `ENTIRE_TOKEN` is empty, since the helper could
+  not clone without it. It does not install the `entire` CLI and never passes the token anywhere.
+
+  ### Related Steps
+
+  - [Git Clone Repository](https://www.bitrise.io/integrations/steps/git-clone)
+website: https://github.com/bitrise-steplib/step-entire-setup
+source_code_url: https://github.com/bitrise-steplib/step-entire-setup
+support_url: https://github.com/bitrise-steplib/step-entire-setup/issues
+
+type_tags:
+- utility
+
+is_always_run: false
+is_skippable: false
+
+toolkit:
+  go:
+    package_name: github.com/bitrise-steplib/step-entire-setup
+
+inputs:
+- entire_version: 0.12.2
+  opts:
+    title: Entire CLI release version
+    summary: The entireio/cli release whose git-remote-entire is installed
+    description: |-
+      The version of the [entireio/cli release](https://github.com/entireio/cli/releases) to install
+      `git-remote-entire` from, without the leading `v`.
+    is_required: true
+- install_dir: $HOME/.local/bin
+  opts:
+    title: Install directory
+    summary: Where git-remote-entire is written; prepended to PATH for the following Steps
+    is_required: true
+- entire_token: $ENTIRE_TOKEN
+  opts:
+    title: Entire checkout token
+    summary: Checked for presence only; git-remote-entire reads it from ENTIRE_TOKEN itself
+    description: |-
+      Bitrise sets `ENTIRE_TOKEN` for the builds of an Entire project. The Step only checks that the
+      token is present, so a build whose clone could not succeed fails here, with a clear message,
+      instead of in the Git Clone step.
+    is_sensitive: true
+    is_dont_change_value: true
+- verbose: "false"
+  opts:
+    title: Enable verbose logging
+    value_options:
+    - "true"
+    - "false"
+
+outputs:
+- ENTIRE_SETUP_HELPER_PATH:
+  opts:
+    title: Path of the installed git-remote-entire
